@@ -1,13 +1,17 @@
 #!/bin/bash
+set -e
 
-#_Change_Working_Directory
 cd /home/ec2-user/server
 
-#_Update_&_Set_Node_Version
-curl -sL https://rpm.nodesource.com/setup_18.x | sudo -E bash -
+# Clean old deployment files to avoid overwrite errors
+rm -rf *
 
-#_Download_Node_&NPM
-yum -y install nodejs npm
+# Install correct Node.js version (v20)
+sudo yum remove -y nodejs npm
+curl -fsSL https://rpm.nodesource.com/setup_20.x | sudo -E bash -
+sudo yum install -y nodejs
 
-#_Download_PM2
-npm install pm2@latest -g
+# Install PM2 globally
+sudo npm install pm2@latest -g
+
+echo "✅ EC2 prepared: old files cleaned & Node v20 installed."
