@@ -3,13 +3,13 @@ os: linux
 
 files:
   - source: /dist/stolt/browser
-    destination: /home/ec2-user/server
+    destination: /usr/share/nginx/html
 
 permissions:
-  - object: /
+  - object: /usr/share/nginx/html
     pattern: "**"
-    owner: ec2-user
-    group: ec2-user
+    owner: nginx
+    group: nginx
 
 hooks:
   BeforeInstall:
