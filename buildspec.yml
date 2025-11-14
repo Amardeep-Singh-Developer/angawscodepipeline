@@ -3,20 +3,21 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18
-
+      nodejs: 20
     commands:
-      - echo Installing Angular dependencies...
-      - npm install -g @angular/cli
-      - npm install
+      - echo Installing dependencies...
+      - npm ci
 
   build:
     commands:
       - echo Building Angular app...
-      - ng build --configuration production
+      - npm run build -- --configuration production
+      - echo "Copying package.json & package-lock.json to dist"
+      - cp package.json package-lock.json dist/stolt/
 
 artifacts:
   files:
+    - dist/**/*
     - appspec.yml
     - scripts/**/*
-    - dist/**/*
+    - package*.json 
