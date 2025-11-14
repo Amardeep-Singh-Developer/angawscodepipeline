@@ -1,10 +1,13 @@
 #!/bin/bash
+set -e
 
-#_Change_Working_Directory
-cd /home/ec2-user/server
+cd /home/ec2-user/server/dist/stolt
 
-#_Delete_Old_PM2_Service
-#sudo pm2 delete Frontend
-#sudo pm2 start server.js --name Frontend
-pm2 delete Frontend
-pm2 start server.js --name Frontend
+# Install dependencies
+npm install
+
+# Start SSR server in background
+nohup node server/main.js > /home/ec2-user/server/serve.log 2>&1 &
+
+echo "✅ Angular Universal SSR app started"
+exit 0
