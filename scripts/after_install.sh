@@ -1,17 +1,13 @@
 #!/bin/bash
 set -e
 
-# Go to project folder
-cd /home/ec2-user/server
+cd /home/ec2-user/server/dist/stolt
 
-# Remove old dependencies and builds (optional)
-rm -rf node_modules
-rm -rf dist
-
-# Install required dependencies
+# Install dependencies
 npm install
 
-# Build the Angular app
-npm run build --prod
+# Start Angular SSR server in background
+nohup PORT=4000 HOST=0.0.0.0 node --experimental-specifier-resolution=node server/main.server.mjs > /home/ec2-user/server/serve.log 2>&1 &
 
-echo "✅ Angular build completed successfully."
+echo "✅ Angular Universal SSR app started"
+exit 0
